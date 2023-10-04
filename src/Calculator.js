@@ -167,7 +167,7 @@ function Calculator() {
                                     <Typography variant="body1">Weekly Pay: ${pay.weeklyPay.toFixed(2)}</Typography>
                                     <Typography variant="body1">Monthly Pay: ${pay.monthlyPay.toFixed(2)}</Typography>
                                     <Typography variant="body1">Yearly Pay: ${pay.yearlyPay.toFixed(2)}</Typography>
-                                    {days && <Typography variant="body1">The pay from {startDate.toLocaleDateString()} to {endDate.toLocaleDateString()} ({days} days) is ${((days/7) * pay.weeklyPay).toFixed(2)}</Typography>}
+                                    {days && <Typography variant="body1">The pay from {startDate.toLocaleDateString()} to {endDate.toLocaleDateString()} ({days} days) is ${((days/7.0) * pay.weeklyPay).toFixed(2)}</Typography>}
                                 </Box>
                             )}
                         </Card>
