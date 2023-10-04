@@ -160,7 +160,7 @@ function Calculator() {
                         </Button>
 
                         <Typography variant="h6" gutterBottom>Calculated Pay:</Typography>
-                        <Card square={false} elevation={24} sx={{ padding: 3, margin: "1em 0" }}>
+                        <Card elevation={1} square={false} sx={{ padding: 3, margin: "1em 0" }}>
                             {pay && (
                                 <Box mt={2}>
                                     <Typography variant="body1">Daily Pay: ${pay.dailyPay.toFixed(2)}</Typography>
