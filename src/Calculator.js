@@ -16,6 +16,7 @@ function Calculator() {
     const [days, setDays] = useState(null)
     const [dateError, setDateError] = useState("");
     const [payError, setPayError] = useState("");
+    const [weeklyHours, setWeeklyHours] = useState(40);
 
 
     const calculatePay = () => {
@@ -33,7 +34,7 @@ function Calculator() {
         const y = parseInt(years, 10);
 
         const adjustedHourlyRate = hr * (1 - (dp / 100));
-        const weeklyPay = adjustedHourlyRate * 40;
+        const weeklyPay = adjustedHourlyRate * weeklyHours;
         const monthlyPay = weeklyPay * w;
         const yearlyPay = monthlyPay * m * y;
         const dailyPay = weeklyPay / 5;
@@ -67,6 +68,22 @@ function Calculator() {
                         onChange={(e) => setHourlyRate(e.target.value)}
                     />
                     <Typography color="error" variant="body2">{payError}</Typography>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        type="number"
+                        id="weeklyHours"
+                        label="Weekly Hours"
+                        value={weeklyHours}
+                        onChange={(e) => {
+                            const value = parseInt(e.target.value, 10);
+                            if (value >= 1 && value <= 40) {
+                                setWeeklyHours(value);
+                            }
+                        }}
+                        helperText="Enter weekly hours (between 1 and 40)"
+                    />
                     <Typography gutterBottom>Deduction Percentage: {deductionPercentage}%</Typography>
                     <Slider
                         value={deductionPercentage}
@@ -108,30 +125,30 @@ function Calculator() {
                         onChange={(e) => setYears(e.target.value)}
                     />
                     <Grid container spacing={3}>
-                    <Grid item xs={12} sm={6}>
-                    <DatePicker
-                        label="Start Date"
-                        value={startDate}
-                        onChange={(newValue) => setStartDate(newValue)}
-                        textField={<TextField variant="outlined" margin="normal" fullWidth />}
-                    />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <DatePicker
-                        label="End Date"
-                        value={endDate}
-                        onChange={(newValue) => {
-                            if (newValue > startDate) {
-                                setEndDate(newValue);
-                                setDateError("");
-                            } else {
-                                setDateError("End date should be greater than the start date.");
-                                setEndDate(null);
-                            }
-                        }}
-                        textField={<TextField variant="outlined" margin="normal" fullWidth />}
-                    />
-                    </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <DatePicker
+                                label="Start Date"
+                                value={startDate}
+                                onChange={(newValue) => setStartDate(newValue)}
+                                textField={<TextField variant="outlined" margin="normal" fullWidth />}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <DatePicker
+                                label="End Date"
+                                value={endDate}
+                                onChange={(newValue) => {
+                                    if (newValue > startDate) {
+                                        setEndDate(newValue);
+                                        setDateError("");
+                                    } else {
+                                        setDateError("End date should be greater than the start date.");
+                                        setEndDate(null);
+                                    }
+                                }}
+                                textField={<TextField variant="outlined" margin="normal" fullWidth />}
+                            />
+                        </Grid>
                     </Grid>
                     <Typography color="error" variant="body2">{dateError}</Typography>
                     <Button
